@@ -5,10 +5,12 @@ import Icon from "@fortawesome/react-fontawesome";
 import IconArrow from "@fortawesome/fontawesome-free-solid/faArrowRight";
 import IconDelete from "@fortawesome/fontawesome-free-solid/faRecycle";
 import "./Admin.css";
+import { RingLoader } from "react-spinners";
 
 class Admin extends Component {
   state = {
-    items: []
+    items: [],
+    loading: true
   };
 
   getItems = () => {
@@ -26,6 +28,9 @@ class Admin extends Component {
           });
         });
         this.setState({ items });
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);
       });
   };
 
@@ -35,6 +40,7 @@ class Admin extends Component {
 
   onDelete = id => {
     console.log("Deleting " + id);
+    this.setState({ loading: true });
     fb
       .firestore()
       .collection("changelog")
@@ -42,11 +48,10 @@ class Admin extends Component {
       .delete()
       .then(i => {
         const { items } = this.state;
-        const index = items.findIndex(i => {
-          i.id == id;
-        });
+        const index = items.findIndex(i => i.id === id);
         items.splice(index, 1);
         this.setState({ items });
+        this.setState({ loading: false });
       });
   };
 
@@ -54,7 +59,7 @@ class Admin extends Component {
     const items = this.state.items.map(i => {
       return (
         <li key={i.id}>
-          {i.id}. {i.title}{" "}
+          {i.title}{" "}
           <Link to={"/post/" + i.id}>
             <Icon icon={IconArrow} />
           </Link>
@@ -67,7 +72,10 @@ class Admin extends Component {
       <div className="admin-wrapper">
         <Link to="/new">Add new</Link>
         <h1>Posts:</h1>
-        <ul>{items}</ul>
+        <ul>
+          <RingLoader color={"#123abc"} loading={this.state.loading} />
+          {items}
+        </ul>
       </div>
     );
   }

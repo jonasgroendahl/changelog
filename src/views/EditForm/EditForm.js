@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { format } from "date-fns";
-import { EditorState, convertFromRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import fb from "../../config/firebase";
 import { withRouter } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 class EditForm extends Component {
   state = {
     date: "1991-08-11",
-    editorState: null,
-    contentState: null,
+    text: "",
     title: "",
     type: "On Demand"
   };
@@ -26,7 +23,7 @@ class EditForm extends Component {
         console.log(qs.data().editorState);
         this.setState({
           title: qs.data().title,
-          contentState: JSON.parse(qs.data().body),
+          text: qs.data().body,
           date: qs.data().date,
           type: qs.data().type
           /*editorState: JSON.parse(qs.data().editorState)*/
@@ -36,18 +33,9 @@ class EditForm extends Component {
     //fb.firestore().collection("changelog").doc()
   }
 
-  onEditorStateChange = editorState => {
-    console.log("editStateChange", editorState);
-    this.setState({
-      editorState
-    });
-  };
-
-  onContentStateChange = contentState => {
-    console.log(contentState);
-    this.setState({
-      contentState
-    });
+  handleChange = value => {
+    console.log(value);
+    this.setState({ text: value });
   };
 
   save = e => {
@@ -82,6 +70,35 @@ class EditForm extends Component {
   };
 
   render() {
+    const modules = {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" }
+        ],
+        ["link", "image"],
+        ["clean"]
+      ]
+    };
+
+    const formats = [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image"
+    ];
+
     return (
       <div>
         <div className="grid">
@@ -108,11 +125,11 @@ class EditForm extends Component {
                 <option>On demand</option>
                 <option>MyWexer</option>
               </select>
-              <Editor
-                editorState={this.state.editorState}
-                contentState={this.state.contentState}
-                onEditorStateChange={this.onEditorStateChange}
-                onContentStateChange={this.onContentStateChange}
+              <ReactQuill
+                value={this.state.text}
+                onChange={this.handleChange}
+                modules={modules}
+                formats={formats}
               />
               <button>Save changelog</button>
             </div>

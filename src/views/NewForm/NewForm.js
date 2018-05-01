@@ -1,42 +1,30 @@
 import React, { Component } from "react";
 import { format } from "date-fns";
 import "./NewForm.css";
-import { EditorState, convertFromRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import fb from "../../config/firebase";
+import ReactQuill from "react-quill";
+import { withRouter } from "react-router-dom";
+import { RingLoader } from "react-spinners";
 
-export default class NewForm extends Component {
+class NewForm extends Component {
   state = {
-    date: "1991-08-21",
-    editorState: EditorState.createEmpty(),
-    contentState: null,
+    date: format(new Date(), "YYYY-MM-DD"),
     title: "",
-    type: "On Demand"
-  };
-
-  onEditorStateChange = editorState => {
-    console.log(editorState);
-    this.setState({
-      editorState
-    });
-  };
-
-  onContentStateChange = contentState => {
-    console.log(contentState);
-    this.setState({
-      contentState
-    });
+    type: "On Demand",
+    text: "",
+    loading: false
   };
 
   save = e => {
     e.preventDefault();
+    this.setState({
+      loading: true
+    });
     const objectToSend = {
       title: this.state.title,
       type: this.state.type,
-      body: JSON.stringify(this.state.contentState),
-      date: this.state.date,
-      editorState: JSON.stringify(this.state.editorState)
+      body: this.state.text,
+      date: this.state.date
     };
     fb
       .firestore()
@@ -44,6 +32,7 @@ export default class NewForm extends Component {
       .add(objectToSend)
       .then(res => {
         console.log("Saved entry to database");
+        this.props.history.push("/admin");
       });
   };
 
@@ -56,8 +45,42 @@ export default class NewForm extends Component {
     });
   };
 
+  handleChange = value => {
+    console.log(value);
+    this.setState({ text: value });
+  };
+
   render() {
-    const { date, editorState } = this.state;
+    const { date } = this.state;
+
+    const modules = {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" }
+        ],
+        ["link", "image"],
+        ["clean"]
+      ]
+    };
+
+    const formats = [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image"
+    ];
 
     return (
       <div>
@@ -74,18 +97,20 @@ export default class NewForm extends Component {
                 onChange={this.onChange}
                 type="date"
                 name="date"
-                value={format(new Date(), "YYYY-MM-DD")}
+                value={date}
               />
               <select name="type" onChange={this.onChange}>
                 <option>On demand</option>
                 <option>MyWexer</option>
               </select>
-              <Editor
-                editorState={editorState}
-                onEditorStateChange={this.onEditorStateChange}
-                onContentStateChange={this.onContentStateChange}
+              <ReactQuill
+                value={this.state.text}
+                onChange={this.handleChange}
+                modules={modules}
+                formats={formats}
               />
               <button>Add changelog</button>
+              <RingLoader color={"#123abc"} loading={this.state.loading} />
             </div>
           </form>
         </div>
@@ -93,3 +118,5 @@ export default class NewForm extends Component {
     );
   }
 }
+
+export default withRouter(NewForm);

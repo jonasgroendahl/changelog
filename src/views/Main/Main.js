@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import "./Main.css";
 import fb from "../../config/firebase";
-import draftToHtml from "draftjs-to-html";
+import { RingLoader } from "react-spinners";
 
 export default class Main extends Component {
   state = {
-    items: []
+    items: [],
+    loading: true
   };
 
   getItems = () => {
@@ -26,6 +27,9 @@ export default class Main extends Component {
           });
         });
         this.setState({ items });
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);
       });
   };
 
@@ -40,12 +44,10 @@ export default class Main extends Component {
   render() {
     const postsSideNav = this.state.items.map(i => {
       return (
-        <li>
+        <li key={"nav" + i.id}>
           <h1>Changelog</h1>
           <p>{i.type}</p>
-          <a href={"#" + i.id} key={"nav" + i.id}>
-            {i.date}
-          </a>
+          <a href={"#" + i.id}>{i.date}</a>
         </li>
       );
     });
@@ -57,7 +59,7 @@ export default class Main extends Component {
           <p>{i.date}</p>
           <div
             dangerouslySetInnerHTML={{
-              __html: draftToHtml(JSON.parse(i.body))
+              __html: i.body
             }}
           />
         </div>
@@ -70,6 +72,7 @@ export default class Main extends Component {
           <ul>{postsSideNav}</ul>
         </div>
         <div className="main-grid">
+          <RingLoader color={"#123abc"} loading={this.state.loading} />
           <div className="main-grid-content">{postsMain}</div>
         </div>
       </div>
