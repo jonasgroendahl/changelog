@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 class EditForm extends Component {
   state = {
     date: "1991-08-11",
-    editorState: EditorState.createEmpty(),
+    editorState: null,
     contentState: null,
     title: "",
     type: "On Demand"
@@ -23,11 +23,13 @@ class EditForm extends Component {
       .doc(this.props.match.params.id)
       .get()
       .then(qs => {
+        console.log(qs.data().editorState);
         this.setState({
           title: qs.data().title,
           contentState: JSON.parse(qs.data().body),
           date: qs.data().date,
           type: qs.data().type
+          /*editorState: JSON.parse(qs.data().editorState)*/
         });
         console.log(this.state);
       });
@@ -35,7 +37,7 @@ class EditForm extends Component {
   }
 
   onEditorStateChange = editorState => {
-    console.log(editorState);
+    console.log("editStateChange", editorState);
     this.setState({
       editorState
     });
@@ -80,8 +82,6 @@ class EditForm extends Component {
   };
 
   render() {
-    const { date, editorState } = this.state;
-
     return (
       <div>
         <div className="grid">
@@ -109,7 +109,7 @@ class EditForm extends Component {
                 <option>MyWexer</option>
               </select>
               <Editor
-                editorState={editorState}
+                editorState={this.state.editorState}
                 contentState={this.state.contentState}
                 onEditorStateChange={this.onEditorStateChange}
                 onContentStateChange={this.onContentStateChange}

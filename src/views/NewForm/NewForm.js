@@ -35,7 +35,8 @@ export default class NewForm extends Component {
       title: this.state.title,
       type: this.state.type,
       body: JSON.stringify(this.state.contentState),
-      date: this.state.date
+      date: this.state.date,
+      editorState: JSON.stringify(this.state.editorState)
     };
     fb
       .firestore()
@@ -50,9 +51,6 @@ export default class NewForm extends Component {
     console.log("onChange handler");
     let value = event.target.value;
     console.log(value);
-    if (event.target.name === "date") {
-      value = format(value, "YYYY-MM-DD");
-    }
     this.setState({
       [event.target.name]: value
     });
