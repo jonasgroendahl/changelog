@@ -43,7 +43,7 @@ class EditForm extends Component {
     const objectToSend = {
       title: this.state.title,
       type: this.state.type,
-      body: JSON.stringify(this.state.contentState),
+      body: this.state.text,
       date: this.state.date
     };
     fb
