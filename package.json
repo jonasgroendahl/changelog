@@ -1,0 +1,29 @@
+{
+  "name": "changelog",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@firebase/firestore": "^0.4.1",
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.10",
+    "@fortawesome/react-fontawesome": "0.0.18",
+    "axios": "^0.18.0",
+    "date-fns": "^1.29.0",
+    "draft-js": "^0.10.5",
+    "draftjs-to-html": "^0.8.3",
+    "firebase": "^4.13.1",
+    "html-to-draftjs": "^1.4.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-draft-wysiwyg": "^1.12.13",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

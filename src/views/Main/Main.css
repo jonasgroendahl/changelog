@@ -1,0 +1,59 @@
+.main-grid {
+  margin-left: 300px;
+  padding: 20px;
+}
+
+.main-grid-content {
+  width: 100%;
+}
+
+.main-grid-content .article {
+  margin: 50px 20px;
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: center;
+  align-items: center;
+}
+
+.article > p {
+  margin: 10px;
+  font-size: 1.5rem;
+  color: #ff2a87;
+}
+
+.article > h1 {
+  font-size: 3rem;
+}
+
+.main-sidenav {
+  background-color: #042029;
+  width: 300px;
+  color: #248bd2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  text-align: center;
+}
+
+.main-sidenav h1 {
+  margin-top: 60px;
+}
+
+.main-sidenav h1 span {
+  font-size: 1.4rem;
+}
+
+.main-sidenav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-flow: column wrap;
+  list-style-type: none;
+}
+
+.main-sidenav li a {
+  text-decoration-line: none;
+  color: White;
+}

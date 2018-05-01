@@ -1,0 +1,16 @@
+.admin-wrapper {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap column;
+  margin-top: 100px;
+}
+
+.admin-wrapper > * {
+  padding: 10px;
+}
+
+.admin-wrapper svg {
+  margin: 0 10px;
+}

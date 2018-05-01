@@ -1,0 +1,18 @@
+.form-flex {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 20px;
+}
+
+.form-flex > * {
+  margin: 10px 2px;
+}
+
+.preview {
+  white-space: pre-line;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
