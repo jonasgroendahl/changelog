@@ -8,17 +8,21 @@
 }
 
 .main-grid-content .article {
-  margin: 50px 20px;
+  margin: 40px 200px;
   display: flex;
   flex-flow: wrap column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
 }
 
 .article > p {
-  margin: 10px;
-  font-size: 1.5rem;
-  color: #ff2a87;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #00b3d3;
+}
+
+.article img {
+  border-radius: 5px;
 }
 
 .article > h1 {
@@ -28,7 +32,7 @@
 .main-sidenav {
   background-color: #042029;
   width: 300px;
-  color: #248bd2;
+  color: #fbff16;
   position: fixed;
   left: 0;
   top: 0;
@@ -37,11 +41,11 @@
 }
 
 .main-sidenav h1 {
-  margin-top: 60px;
-}
-
-.main-sidenav h1 span {
-  font-size: 1.4rem;
+  color: #3eaffa;
+  margin-top: 40px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-size: 1.5rem;
 }
 
 .main-sidenav ul {
@@ -51,6 +55,7 @@
   text-align: center;
   flex-flow: column wrap;
   list-style-type: none;
+  padding: 0;
 }
 
 .main-sidenav li a {
