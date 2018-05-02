@@ -57,6 +57,23 @@ class EditForm extends Component {
       });
   };
 
+  onImgChange = event => {
+    console.log("Picked an image");
+    document.querySelector("#file").click();
+  };
+
+  onFileChange = event => {
+    const file = event.target.files[0];
+    const ref = fb.storage().ref(file.name);
+    ref.put(file).then(c => {
+      let { text } = this.state;
+      text += '<img src="' + c.downloadURL + '" />';
+      this.setState({
+        text
+      });
+    });
+  };
+
   onChange = event => {
     console.log("onChange handler");
     let value = event.target.value;
@@ -71,18 +88,18 @@ class EditForm extends Component {
 
   render() {
     const modules = {
-      toolbar: [
-        [{ header: [1, 2, false] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [
-          { list: "ordered" },
-          { list: "bullet" },
-          { indent: "-1" },
-          { indent: "+1" }
+      formula: true,
+      toolbar: {
+        container: [
+          ["bold", "italic", "underline", "blockquote"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["formula", "link", "image"],
+          ["clean"]
         ],
-        ["link", "image"],
-        ["clean"]
-      ]
+        handlers: {
+          image: this.onImgChange
+        }
+      }
     };
 
     const formats = [
@@ -125,6 +142,12 @@ class EditForm extends Component {
                 <option>On demand</option>
                 <option>MyWexer</option>
               </select>
+              <input
+                type="file"
+                id="file"
+                style={{ display: "none" }}
+                onChange={this.onFileChange}
+              />
               <ReactQuill
                 value={this.state.text}
                 onChange={this.handleChange}

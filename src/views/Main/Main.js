@@ -56,7 +56,7 @@ export default class Main extends Component {
 
     const postsMain = this.state.items.map(i => {
       return (
-        <div className="article" id={i.id} key={"main" + i.id}>
+        <div className="article ql-editor" id={i.id} key={"main" + i.id}>
           <h1>{i.title}</h1>
           <p>{i.date}</p>
           <div
