@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./Main.css";
 import fb from "../../config/firebase";
-import { RingLoader } from "react-spinners";
+import { ClimbingBoxLoader } from "react-spinners";
+import Icon from "@fortawesome/react-fontawesome";
+import IconFolder from "@fortawesome/fontawesome-free-solid/faFolder";
 
 export default class Main extends Component {
   state = {
@@ -72,8 +74,30 @@ export default class Main extends Component {
           <ul>{postsSideNav}</ul>
         </div>
         <div className="main-grid">
-          <RingLoader color={"#123abc"} loading={this.state.loading} />
-          <div className="main-grid-content">{postsMain}</div>
+          <ClimbingBoxLoader color={"black"} loading={this.state.loading} />
+          <div className="main-grid-content">
+            {!this.state.loading ? (
+              postsMain
+            ) : (
+              <div>
+                <Icon
+                  className="article"
+                  icon={IconFolder}
+                  style={{ width: 50, height: 50 }}
+                />
+                <Icon
+                  className="article"
+                  icon={IconFolder}
+                  style={{ width: 50, height: 50 }}
+                />
+                <Icon
+                  className="article"
+                  icon={IconFolder}
+                  style={{ width: 50, height: 50 }}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
