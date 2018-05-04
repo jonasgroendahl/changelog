@@ -93,7 +93,7 @@ class EditForm extends Component {
         container: [
           ["bold", "italic", "underline", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
-          ["formula", "link", "image"],
+          ["formula", "link", "image", "video"],
           ["clean"]
         ],
         handlers: {
@@ -113,7 +113,8 @@ class EditForm extends Component {
       "bullet",
       "indent",
       "link",
-      "image"
+      "image",
+      "video"
     ];
 
     return (

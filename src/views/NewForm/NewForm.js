@@ -76,7 +76,7 @@ class NewForm extends Component {
         container: [
           ["bold", "italic", "underline", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
-          ["formula", "link", "image"],
+          ["formula", "link", "image", "video"],
           ["clean"]
         ],
         handlers: {
@@ -97,7 +97,8 @@ class NewForm extends Component {
       "indent",
       "link",
       "image",
-      "image-tooltip"
+      "image-tooltip",
+      "video"
     ];
 
     return (

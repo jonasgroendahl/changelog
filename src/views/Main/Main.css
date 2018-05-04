@@ -65,12 +65,14 @@
 
 .main-sidenav ul {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  flex-flow: column wrap;
+  flex-direction: column;
   list-style-type: none;
   padding: 0;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .main-sidenav li a {
