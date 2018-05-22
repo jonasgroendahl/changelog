@@ -74,6 +74,10 @@ class NewForm extends Component {
       formula: true,
       toolbar: {
         container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ color: [] }, { background: [] }],
+          [{ font: [] }],
+          [{ align: [] }],
           ["bold", "italic", "underline", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
           ["formula", "link", "image", "video"],
